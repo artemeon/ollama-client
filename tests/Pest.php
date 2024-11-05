@@ -43,7 +43,7 @@ pest()->project()->github('artemeon/ollama-client');
 |
 */
 
-function something()
+function something(): void
 {
     // ..
 }

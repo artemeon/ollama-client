@@ -10,6 +10,7 @@
         }
     ],
     "scripts": {
+        "lint": "vendor/bin/pint --test",
         "phpstan": "vendor/bin/phpstan",
         "test": "vendor/bin/pest --parallel",
         "test:coverage": "XDEBUG_MODE=coverage vendor/bin/pest --coverage --min=50",
@@ -28,7 +29,8 @@
         "phpstan/phpstan": "^1.12",
         "phpstan/extension-installer": "^1.4",
         "spatie/ray": "^1.41",
-        "spatie/invade": "^2.1"
+        "spatie/invade": "^2.1",
+        "laravel/pint": "^1.18"
     },
     "license": "MIT",
     "autoload": {

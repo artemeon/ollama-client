@@ -11,7 +11,7 @@ use GuzzleHttp\Psr7\Uri;
 
 covers(Client::class, ClientFactory::class);
 
-it('should create a configured client', function (string $baseUrl) {
+it('should create a configured client', function (string $baseUrl): void {
     $client = Client::create($baseUrl);
 
     $config = invade(invade($client)->http)->config;
@@ -20,18 +20,18 @@ it('should create a configured client', function (string $baseUrl) {
         ->and($config['base_uri'])->toEqual(new Uri($baseUrl));
 })->with(['http://localhost', 'http://127.0.0.1:12345']);
 
-it('should throw an exception when an invalid base url is provided', function () {
+it('should throw an exception when an invalid base url is provided', function (): void {
     Client::create('foo');
 })->throws(InvalidArgumentException::class, 'Invalid Base URL');
 
-it('should create a fake client', function () {
+it('should create a fake client', function (): void {
     $client = Client::fake();
 
     expect($client)->toBeInstanceOf(Client::class);
 });
 
-describe('Generate Endpoint', function () {
-    it('should send the request', function (string $prompt, string $model) {
+describe('Generate Endpoint', function (): void {
+    it('should send the request', function (string $prompt, string $model): void {
         $container = [];
         $client = Client::fake(container: $container);
 
@@ -48,7 +48,7 @@ describe('Generate Endpoint', function () {
             ->model->toBe($model);
     })->with([['Hello, world!', 'llama3:latest']]);
 
-    it('should generate a response', function () {
+    it('should generate a response', function (): void {
         $client = Client::fake([new Response(201)]);
 
         $response = $client->generate('Hello, world!', model: 'llama3:latest');
@@ -56,7 +56,7 @@ describe('Generate Endpoint', function () {
         expect($response->getStatusCode())->toBe(201);
     });
 
-    it('should generate a fake default response', function () {
+    it('should generate a fake default response', function (): void {
         $client = Client::fake();
 
         $response = $client->generate('Hello, world!', model: 'llama3:latest');
@@ -64,13 +64,13 @@ describe('Generate Endpoint', function () {
         expect($response->getStatusCode())->toBe(200);
     });
 
-    it('should throw an exception when model is not provided', function () {
+    it('should throw an exception when model is not provided', function (): void {
         $client = Client::fake();
 
         $client->generate('Hello, world!');
     })->throws(InvalidArgumentException::class, 'Model is required');
 
-    it('should create fake client with default url', function () {
+    it('should create fake client with default url', function (): void {
         $client = Client::fake();
 
         $config = invade(invade($client)->http)->config;
@@ -79,7 +79,7 @@ describe('Generate Endpoint', function () {
             ->and($config['base_uri'])->toEqual(new Uri('http://localhost'));
     });
 
-    it('can overwrite the default model', function () {
+    it('can overwrite the default model', function (): void {
         $container = [];
         $client = Client::fake(model: 'llama3:latest', container: $container);
 
@@ -95,7 +95,7 @@ describe('Generate Endpoint', function () {
             ->model->toBe('llama3.2:latest');
     });
 
-    it('should set the format', function () {
+    it('should set the format', function (): void {
         $container = [];
         $client = Client::fake(model: 'llama3:latest', container: $container);
 
@@ -111,7 +111,7 @@ describe('Generate Endpoint', function () {
             ->format->toBe(Format::JSON->value);
     });
 
-    it('should set the system prompt', function () {
+    it('should set the system prompt', function (): void {
         $container = [];
         $client = Client::fake(model: 'llama3:latest', container: $container);
 
@@ -124,10 +124,10 @@ describe('Generate Endpoint', function () {
             ->and($request->getBody()->getContents())
             ->json()
             ->toHaveCount(4)
-            ->system->toBe( 'Lorem ipsum');
+            ->system->toBe('Lorem ipsum');
     });
 
-    it('should set options', function () {
+    it('should set options', function (): void {
         $container = [];
         $client = Client::fake(model: 'llama3:latest', container: $container);
 
@@ -144,8 +144,8 @@ describe('Generate Endpoint', function () {
     });
 });
 
-describe('Tags Endpoint', function () {
-    it('should request tags', function () {
+describe('Tags Endpoint', function (): void {
+    it('should request tags', function (): void {
         $container = [];
         $client = Client::fake(container: $container);
 
@@ -155,8 +155,8 @@ describe('Tags Endpoint', function () {
     });
 });
 
-describe('Show Model Endpoint', function () {
-    it('should show model information', function () {
+describe('Show Model Endpoint', function (): void {
+    it('should show model information', function (): void {
         $container = [];
         $client = Client::fake(container: $container);
 
@@ -172,7 +172,7 @@ describe('Show Model Endpoint', function () {
             ->name->toBe('llama3:latest');
     });
 
-    it('should show verbose model information', function () {
+    it('should show verbose model information', function (): void {
         $container = [];
         $client = Client::fake(container: $container);
 
