@@ -1,0 +1,51 @@
+{
+    "name": "artemeon/ollama-client",
+    "description": "Ollama Client",
+    "type": "library",
+    "minimum-stability": "stable",
+    "authors": [
+        {
+            "name": "Marc Reichel",
+            "email": "marc.reichel@artemeon.de"
+        }
+    ],
+    "scripts": {
+        "phpstan": "vendor/bin/phpstan",
+        "test": "vendor/bin/pest --parallel",
+        "test:coverage": "XDEBUG_MODE=coverage vendor/bin/pest --coverage --min=50",
+        "test:mutate": "XDEBUG_MODE=coverage vendor/bin/pest --parallel --mutate",
+        "type:coverage": "vendor/bin/pest --type-coverage --min=80"
+    },
+    "require": {
+        "php": ">=8.3",
+        "ext-json": "*",
+        "guzzlehttp/guzzle": "^7.9"
+    },
+    "require-dev": {
+        "pestphp/pest": "^3.2",
+        "pestphp/pest-plugin-type-coverage": "^3.0",
+        "mockery/mockery": "^1.6",
+        "phpstan/phpstan": "^1.12",
+        "phpstan/extension-installer": "^1.4",
+        "spatie/ray": "^1.41",
+        "spatie/invade": "^2.1"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Artemeon\\Ollama\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Artemeon\\Ollama\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "phpstan/extension-installer": true
+        },
+        "process-timeout": 0
+    }
+}
